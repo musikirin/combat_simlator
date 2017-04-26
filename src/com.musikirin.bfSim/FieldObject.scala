@@ -5,10 +5,23 @@ package com.musikirin.bfSim
   */
 trait FieldObject {
   val id:Int
-  val pos_x:Float
-  val pos_y:Float
-  val hp:Int
-  val hardness:Float
+  var pos_x: Float
+  var pos_y: Float
+  var max_hp: Int
+  var hp: Int
+  var hardness: Float
 
-  def kill(): FieldObject
+  def draw(): Unit
+
+  def damage(point: Int): Unit = hp -= point
+}
+
+trait Human extends FieldObject {
+  var height: Float
+  var width: Float
+  var max_hp: Int
+  var brunt_skills: Int
+  var gun_skills: Int
+  var radian: Float
+  var speed: Float
 }
