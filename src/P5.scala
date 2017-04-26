@@ -1,6 +1,10 @@
-import com.musikirin.bfSim.{Soldier, _}
-import processing.core.PApplet._
+import com.musikirin.bfSim._
 import processing.core._
+import processing.core.PApplet._
+
+import scala.collection.mutable._
+import com.musikirin._
+import com.musikirin.bfSim.Soldier
 
 object P5 {
   def main(args: Array[String]) {

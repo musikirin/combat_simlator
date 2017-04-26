@@ -4,7 +4,7 @@ package com.musikirin.bfSim
   * Created by ninak on 2017/04/24.
   */
 trait FieldObject {
-  val id: Int
+  val id:Int
   var pos_x: Float
   var pos_y: Float
   var max_hp: Int
