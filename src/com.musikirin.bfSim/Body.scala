@@ -11,10 +11,10 @@ import processing.core.PApplet
   * @param pos_y  座標Y
   * @param width  大きさ（死体は高さを取らない）
   */
-class Body(val parent: PApplet, val id: Int, var pos_x: Float, var pos_y: Float, var width: Float) extends FieldObject {
+class Body(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Double, var width: Double) extends FieldObject {
   override var max_hp: Int = 100
   override var hp: Int = max_hp
-  override var hardness: Float = 50
+  override var hardness: Double = 50
 
   /**
     * HPが1以上の時はHPが減り続けます。
@@ -23,7 +23,7 @@ class Body(val parent: PApplet, val id: Int, var pos_x: Float, var pos_y: Float,
     // TODO: HP0を回収するスクリプトに依存するので注意
     if (hp >= 0) {
       hp -= 1
-      parent.fill(255, 255, 255)
+      parent.fill(100, 100, 100)
       parent.ellipse(pos_x, pos_y, width, width)
     }
   }
@@ -32,7 +32,7 @@ class Body(val parent: PApplet, val id: Int, var pos_x: Float, var pos_y: Float,
 object Body {
   private var count = 0
 
-  def apply(parent: PApplet, pos_x: Float, pos_y: Float, width: Float): Body = {
+  def apply(parent: PApplet, pos_x: Double, pos_y: Double, width: Double): Body = {
     new Body(parent, counter(), pos_x, pos_y, width)
   }
 

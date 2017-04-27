@@ -1,7 +1,7 @@
 package com.musikirin.bfSim
 
 /**
-  * Created by ninak on 2017/04/24.
+  * 対するチームを定義します
   */
 trait Affiliation {
   val team_id: Int
@@ -9,9 +9,12 @@ trait Affiliation {
   var member: Vector[Group]
 }
 
+/**
+  * 同じチーム内のグループを定義します。
+  */
 trait Group {
   val group_id: Int
-  var radian: Float
-  var speed: Float
+  var radian: Double
+  var speed: Double
   var member: Vector[Human]
 }
