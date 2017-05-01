@@ -20,10 +20,14 @@ trait FieldObject {
   * オブジェクトの中でも、動く可能性があるオブジェクトです。
   */
 trait MovableObject extends FieldObject {
+  var size_w: Double
   var radian: Double
   var speed: Double
 
-  def move(amount: Double): Unit
+  def move(amount: Double): Unit = {
+    pos_x += speed * amount * math.cos(radian * math.Pi)
+    pos_y += speed * amount * math.sin(radian * math.Pi)
+  }
 }
 
 /**
@@ -31,7 +35,6 @@ trait MovableObject extends FieldObject {
   */
 trait Human extends MovableObject {
   var size_h: Double
-  var size_w: Double
   var brunt_skills: Int
   var gun_skills: Int
 }

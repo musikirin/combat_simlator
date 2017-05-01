@@ -1,5 +1,4 @@
 package com.musikirin
-
 import processing.core.PApplet
 
 /**
@@ -13,4 +12,5 @@ package object bfSim {
     }
   }
 
+  var obj: Vector[FieldObject] = Vector[FieldObject]()
 }

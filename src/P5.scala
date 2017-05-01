@@ -19,9 +19,6 @@ class P5 extends PApplet {
     size(640, 480, "processing.javafx.PGraphicsFX2D")
   }
 
-  var obj = Vector[FieldObject]()
-  var c = 0
-
   override def setup() = {
     background(0)
     smooth()
@@ -30,6 +27,14 @@ class P5 extends PApplet {
   override def keyPressed() {
     if (key == '1') {
       obj :+= Soldier(this, (math.random() * width).toDouble, (math.random() * height).toDouble)
+    }
+    if (key == '0') {
+      for (x <- obj) yield {
+        x match {
+          case x: Soldier => obj :+= x.fire()
+          case _ =>
+        }
+      }
     }
   }
 

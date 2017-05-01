@@ -29,15 +29,8 @@ class Body(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Doubl
   }
 }
 
-object Body {
-  private var count = 0
-
+object Body extends InstanceCounter {
   def apply(parent: PApplet, pos_x: Double, pos_y: Double, width: Double): Body = {
     new Body(parent, counter(), pos_x, pos_y, width)
-  }
-
-  def counter(): Int = {
-    count += 1
-    count - 1
   }
 }
