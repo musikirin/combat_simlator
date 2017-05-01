@@ -11,6 +11,7 @@ class Bullet(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Dou
   override var speed: Double = 10
   override var max_hp: Int = 1
   override var hp: Int = max_hp
+  override var attack: Int = 150
   override var hardness: Double = 100
 
   override def draw(): Unit = {

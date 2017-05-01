@@ -42,6 +42,8 @@ class P5 extends PApplet {
     println(s"---- $frameCount ----")
     Display.refresh(0)
 
+    collusion()
+
     obj = for (x <- obj if x.hp > 0) yield {
       x match {
         case y: MovableObject => y.move(1)
