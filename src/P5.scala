@@ -40,7 +40,7 @@ class P5 extends PApplet {
     obj = for (x <- obj if x.hp > 0) yield {
       x match {
         case y: MovableObject => y.move(1)
-        case _ => _
+        case _ =>
       }
       x.draw()
       x
@@ -65,5 +65,6 @@ class P5 extends PApplet {
       rect(0, 0, width, height)
     }
   }
+
 
 }

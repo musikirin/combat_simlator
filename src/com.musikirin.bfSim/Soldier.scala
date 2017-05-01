@@ -15,7 +15,7 @@ class Soldier(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Do
   override var hp: Int = max_hp
   override var brunt_skills: Int = 60 + (math.random() * 80).toInt
   override var gun_skills: Int = 60 + (math.random() * 80).toInt
-  override var radian: Double = (math.random() * 2).toDouble
+  override var radian: Double = (math.random() * 2)
   override var speed: Double = 1
   override var hardness: Double = 50
 
