@@ -1,13 +1,12 @@
 package com.musikirin.bfSim
 
 import processing.core.PApplet
-import processing.core.PApplet.println
 
 /**
   * Created by kirin on 2017/05/01.
   */
 class Bullet(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Double, var radian: Double) extends MovableObject {
-  override var size_w: Double = 3
+  override var size_w: Double = Bullet.size_w
   override var speed: Double = 10
   override var max_hp: Int = 1
   override var hp: Int = max_hp
@@ -22,13 +21,14 @@ class Bullet(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Dou
     if (hp > 0) {
       parent.fill(255, 255, 255)
       parent.ellipse(pos_x, pos_y, size_w, size_w)
-      println(pos_x + " " + pos_y + " / " + hp)
+      //      println(pos_x + " " + pos_y + " / " + hp)
     }
   }
 }
 
-object Bullet extends InstanceCounter {
+object Bullet {
+  val size_w: Double = 3
   def apply(parent: PApplet, pos_x: Double, pos_y: Double, radian: Double): Unit = {
-    new Bullet(parent, counter(), pos_x, pos_y, radian)
+    new Bullet(parent, objectCounter(), pos_x, pos_y, radian)
   }
 }

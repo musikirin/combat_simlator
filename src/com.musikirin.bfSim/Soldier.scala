@@ -1,7 +1,6 @@
 package com.musikirin.bfSim
 
 import processing.core.PApplet
-import processing.core.PApplet.println
 
 /**
   * 人間を模したインスタンスです。
@@ -27,28 +26,29 @@ class Soldier(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Do
     if (pos_x < 0 || pos_x > parent.width || pos_y < 0 || pos_y > parent.height) {
       hp = 0
     }
-    if (hp <= 0) Body(parent, pos_x, pos_y, size_w)
+    // TODO:ガード分で掃除されるまえにBody1インスタンスを作りたい。
+    if (hp <= 0) gabage :+= Body(parent, pos_x, pos_y, size_w)
     else {
       parent.fill(255, 0, 0)
       parent.ellipse(pos_x, pos_y, size_w, size_w)
-      println(pos_x + " " + pos_y + " / " + hp)
+      //      println(pos_x + " " + pos_y + " / " + hp)
     }
   }
 
   def fire(): Bullet = {
-    println(s"$id is FIRE!!")
+    //    println(s"$id is FIRE!!")
     new Bullet(
       parent,
-      Bullet.counter(),
-      pos_x + (math.cos(radian * math.Pi) * (size_w + 5)),
-      pos_y + (math.sin(radian * math.Pi) * (size_w + 5)),
+      objectCounter(),
+      pos_x + (math.cos(radian * math.Pi) * (size_w + Bullet.size_w + 2)),
+      pos_y + (math.sin(radian * math.Pi) * (size_w + Bullet.size_w + 2)),
       radian
     )
   }
 }
 
-object Soldier extends InstanceCounter {
+object Soldier {
   def apply(parent: PApplet, pos_x: Double, pos_y: Double): Soldier = {
-    new Soldier(parent, counter(), pos_x, pos_y)
+    new Soldier(parent, objectCounter(), pos_x, pos_y)
   }
 }

@@ -10,7 +10,9 @@ package object bfSim {
 
   /* グローバルデータ */
 
-  var obj: Vector[FieldObject] = Vector[FieldObject]()
+  var objctCounter: Int = 0
+  var obj: Vector[MovableObject] = Vector[MovableObject]()
+  var gabage: Vector[FieldObject] = Vector[FieldObject]()
 
   /* 計算省略用の角度変換テーブル */
   val cosTable: Array[Double] = (0 until 360).toArray.map(x => math.sin(math.toRadians(x)))
@@ -34,6 +36,12 @@ package object bfSim {
     n * math.Pi / 180
   }
 
+  def objectCounter(): Int = {
+    val n = objctCounter
+    objctCounter += 1
+    n
+  }
+
 
   /**
     * 円形の図形同士が接触しているか判定します。
@@ -47,20 +55,13 @@ package object bfSim {
   }
 
   def collusion(): Unit = {
-    var sol = Vector[Soldier]()
-    var bul = Vector[Bullet]()
-    for (x <- obj) {
-      x match {
-        case x: Soldier => sol :+= x
-        case x: Bullet => bul :+= x
-      }
-    }
-    for {s <- sol
-         b <- bul} {
-      if (ellipseDistance(s, b) <= 0) {
-        println(s.id + " is Hit!!!")
-        s.hp -= b.attack
-        b.hp -= s.attack
+    // 兵士と弾丸の接触判定
+    for {a <- obj
+         b <- obj} {
+      if (a.id != b.id && ellipseDistance(a, b) < 0) {
+        println(a.id + " is Hit!!!")
+        a.hp -= b.attack
+        b.hp -= a.attack
       }
     }
   }

@@ -1,5 +1,4 @@
 import com.musikirin.bfSim._
-import processing.core.PApplet._
 import processing.core._
 
 object P5 {
@@ -24,6 +23,28 @@ class P5 extends PApplet {
     smooth()
   }
 
+  override def draw() = {
+    //    println(s"---- $frameCount ----")
+    Display.refresh(0)
+
+    // ガード文でHP0のオブジェクトを排除します。
+    obj = for (x <- obj if x.hp > 0) yield {
+      x match {
+        case y: MovableObject => y.move(1)
+        case _ =>
+      }
+      x.draw()
+      x
+    }
+
+    gabage = for (x <- gabage if x.hp > 0) yield {
+      x.draw()
+      x
+    }
+
+    collusion()
+  }
+
   override def keyPressed() {
     if (key == '1') {
       obj :+= Soldier(this, (math.random() * width).toDouble, (math.random() * height).toDouble)
@@ -35,22 +56,6 @@ class P5 extends PApplet {
           case _ =>
         }
       }
-    }
-  }
-
-  override def draw() = {
-    println(s"---- $frameCount ----")
-    Display.refresh(0)
-
-    collusion()
-
-    obj = for (x <- obj if x.hp > 0) yield {
-      x match {
-        case y: MovableObject => y.move(1)
-        case _ =>
-      }
-      x.draw()
-      x
     }
   }
 

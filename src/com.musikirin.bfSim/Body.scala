@@ -25,12 +25,14 @@ class Body(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Doubl
       hp -= 1
       parent.fill(100, 100, 100)
       parent.ellipse(pos_x, pos_y, width, width)
+      //      println(pos_x + " " + pos_y + " / " + hp)
     }
   }
+
 }
 
-object Body extends InstanceCounter {
+object Body {
   def apply(parent: PApplet, pos_x: Double, pos_y: Double, width: Double): Body = {
-    new Body(parent, counter(), pos_x, pos_y, width)
+    new Body(parent, objectCounter(), pos_x, pos_y, width)
   }
 }
