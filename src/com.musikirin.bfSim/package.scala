@@ -9,8 +9,8 @@ import processing.core.PApplet
 package object bfSim {
 
   /*設定*/
-  // 銃の精度 高いほど命中率が上がる
-  var guns_accuracy = 30
+  // 銃の精度 ブレる角度
+  var guns_accuracy = 5
 
   /* グローバルデータ */
   var objctCounter: Int = 0

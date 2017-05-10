@@ -51,7 +51,7 @@ class Soldier(
     else {
       rotate()
       if (dice < 1) fire()
-      else if (dice < 10) move(speed)
+      else if (dice < 20) move(speed)
     }
     draw()
     collusion()
@@ -76,13 +76,13 @@ class Soldier(
 
   def fire(): Unit = {
     if (number_of_bullets > 0) {
-      val ac = math.random() / guns_accuracy / gun_skills
+      val ac = guns_accuracy / gun_skills
       bullets_list :+= new Bullet(
         parent,
         objectCounter(),
         pos_x + (math.cos(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
         pos_y + (math.sin(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
-        degree + (ac - ac / 2)
+        degree + (ac * math.random) - (ac / 2)
       )
       number_of_bullets -= 1
     }
