@@ -26,8 +26,8 @@ trait MovableObject extends FieldObject {
   var attack: Int
 
   def move(amount: Double): Unit = {
-    pos_x += speed * amount * math.cos(degree.toRadians * math.Pi)
-    pos_y += speed * amount * math.sin(degree.toRadians * math.Pi)
+    pos_x += speed * amount * math.cos(degree.toRadians)
+    pos_y += speed * amount * math.sin(degree.toRadians)
   }
 }
 

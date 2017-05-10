@@ -23,7 +23,8 @@ class Soldier(
   override var hp: Int = max_hp
   override var attack: Int = 60 + (math.random() * 40).toInt
   override var gun_skills: Double = 0.5 + (math.random() / 2)
-  override var degree: Double = math.random() * 360
+  override var degree: Double = 180
+  /*math.random() * 360 */
   override var speed: Double = 0.5
   override var hardness: Double = 50
 
@@ -37,7 +38,6 @@ class Soldier(
     else {
       parent.fill(Team.color(team_id)._1, Team.color(team_id)._2, Team.color(team_id)._3)
       parent.ellipse(pos_x, pos_y, size_w, size_w)
-      //      println(pos_x + " " + pos_y + " / " + hp)
     }
   }
 
@@ -48,9 +48,12 @@ class Soldier(
     // 違うIDで、もっとも距離が近い敵を束縛
     val list = soldiers_list.filter(_.team_id != team_id)
     if (list.nonEmpty) {
+      // FIXME: nullのときにminByがエラーとなるためifを分けています。マージしたい。
       val nearest_enemy = Option(list.minBy(ellipseDistance(this, _)))
       if (nearest_enemy.nonEmpty) {
-        degree = math.atan2(nearest_enemy.get.pos_y - pos_y, nearest_enemy.get.pos_x - pos_x).toDegrees
+        val deg = math.atan2(nearest_enemy.get.pos_y - pos_y, nearest_enemy.get.pos_x - pos_x).toDegrees
+        println(deg)
+        degree = deg
       }
     }
   }
@@ -60,8 +63,8 @@ class Soldier(
     new Bullet(
       parent,
       objectCounter(),
-      pos_x + (math.cos(degree * math.Pi) * (size_w + Bullet.size_w + 2)),
-      pos_y + (math.sin(degree * math.Pi) * (size_w + Bullet.size_w + 2)),
+      pos_x + (math.cos(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
+      pos_y + (math.sin(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
       degree + (ac - ac / 2)
     )
   }
