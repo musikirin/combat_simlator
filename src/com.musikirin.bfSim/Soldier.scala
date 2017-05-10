@@ -10,7 +10,13 @@ import processing.core.PApplet
 
 case class Position(var pos_x: Double, var pos_y: Double)
 
-class Soldier(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Double) extends Human {
+class Soldier(
+               val parent: PApplet,
+               val id: Int, var pos_x: Double,
+               var pos_y: Double,
+               val platoon_id: Int,
+               val team_id: Int
+             ) extends Human {
   override var size_h: Double = 10
   override var size_w: Double = 5
   override var max_hp: Int = 90 + (math.random() * 20).toInt
@@ -29,7 +35,7 @@ class Soldier(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Do
     // TODO:ガード分で掃除されるまえにBody1インスタンスを作りたい。
     if (hp <= 0) gabage :+= Body(parent, pos_x, pos_y, size_w)
     else {
-      parent.fill(255, 0, 0)
+      parent.fill(Team.color(team_id)._1, Team.color(team_id)._2, Team.color(team_id)._3)
       parent.ellipse(pos_x, pos_y, size_w, size_w)
       //      println(pos_x + " " + pos_y + " / " + hp)
     }
@@ -48,7 +54,7 @@ class Soldier(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Do
 }
 
 object Soldier {
-  def apply(parent: PApplet, pos_x: Double, pos_y: Double): Soldier = {
-    new Soldier(parent, objectCounter(), pos_x, pos_y)
+  def apply(parent: PApplet, pos_x: Double, pos_y: Double, platoon_id: Int, team_id: Int): Soldier = {
+    new Soldier(parent, objectCounter(), pos_x, pos_y, platoon_id, team_id)
   }
 }

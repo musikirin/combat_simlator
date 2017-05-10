@@ -27,8 +27,19 @@ class P5 extends PApplet {
     //    println(s"---- $frameCount ----")
     Display.refresh(0)
 
+    collusion()
+
     // ガード文でHP0のオブジェクトを排除します。
-    obj = for (x <- obj if x.hp > 0) yield {
+    soldiers_list = for (x <- soldiers_list if x.hp > 0) yield {
+      x match {
+        case y: MovableObject => y.move(1)
+        case _ =>
+      }
+      x.draw()
+      x
+    }
+
+    bullets_list = for (x <- bullets_list if x.hp > 0) yield {
       x match {
         case y: MovableObject => y.move(1)
         case _ =>
@@ -41,18 +52,20 @@ class P5 extends PApplet {
       x.draw()
       x
     }
-
-    collusion()
   }
 
+  // キーの入力による動作
   override def keyPressed() {
     if (key == '1') {
-      obj :+= Soldier(this, (math.random() * width).toDouble, (math.random() * height).toDouble)
+      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
+    }
+    if (key == '2') {
+      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)
     }
     if (key == '0') {
-      for (x <- obj) yield {
+      for (x <- soldiers_list) yield {
         x match {
-          case x: Soldier => obj :+= x.fire()
+          case x: Soldier => bullets_list :+= x.fire()
           case _ =>
         }
       }

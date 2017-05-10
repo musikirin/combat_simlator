@@ -9,10 +9,11 @@ import processing.core.PApplet
 package object bfSim {
 
   /* グローバルデータ */
-
   var objctCounter: Int = 0
-  var obj: Vector[MovableObject] = Vector[MovableObject]()
-  var gabage: Vector[FieldObject] = Vector[FieldObject]()
+  var obj: Vector[MovableObject] = Vector()
+  var soldiers_list: Vector[Soldier] = Vector()
+  var bullets_list: Vector[Bullet] = Vector()
+  var gabage: Vector[FieldObject] = Vector()
 
   /* 計算省略用の角度変換テーブル */
   val cosTable: Array[Double] = (0 until 360).toArray.map(x => math.sin(math.toRadians(x)))
@@ -45,19 +46,19 @@ package object bfSim {
 
   /**
     * 円形の図形同士が接触しているか判定します。
+    * 平方根（高さ^2 + 横^2) - 両オブジェクトの半径
     *
     * @param a
     * @param b
     * @return
     */
   def ellipseDistance(a: MovableObject, b: MovableObject): Double = {
-    math.sqrt(math.pow(math.abs(a.pos_x - b.pos_x), 2) + math.pow(math.abs(a.pos_y - b.pos_y), 2)) - (a.size_w + b.size_w)
+    math.sqrt(math.pow(math.abs(a.pos_x - b.pos_x), 2) + math.pow(math.abs(a.pos_y - b.pos_y), 2)) - ((a.size_w + b.size_w) / 2)
   }
 
   def collusion(): Unit = {
-    // 兵士と弾丸の接触判定
-    for {a <- obj
-         b <- obj} {
+    for {a <- soldiers_list
+         b <- bullets_list} {
       if (a.id != b.id && ellipseDistance(a, b) < 0) {
         println(a.id + " is Hit!!!")
         a.hp -= b.attack
