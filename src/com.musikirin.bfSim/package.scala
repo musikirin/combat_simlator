@@ -55,12 +55,25 @@ package object bfSim {
   def ellipseDistance(a: MovableObject, b: MovableObject): Double = {
     math.sqrt(math.pow(math.abs(a.pos_x - b.pos_x), 2) + math.pow(math.abs(a.pos_y - b.pos_y), 2)) - ((a.size_w + b.size_w) / 2)
   }
-
   def collusion(): Unit = {
-    for {a <- soldiers_list
-         b <- bullets_list} {
+    // 兵士と弾丸の接触判定
+    for {
+      a <- soldiers_list
+      b <- bullets_list
+    } {
       if (a.id != b.id && ellipseDistance(a, b) < 0) {
-        println(a.id + " is Hit!!!")
+        println(a.id + " was Hit!!!")
+        a.hp -= b.attack
+        b.hp -= a.attack
+      }
+    }
+    // 兵士同士の接触判定
+    for {
+      a <- soldiers_list
+      b <- soldiers_list
+    } {
+      if (a.team_id != b.team_id && ellipseDistance(a, b) < 0) {
+        println(a.id + " & " + b.id + " Fight!!!")
         a.hp -= b.attack
         b.hp -= a.attack
       }
