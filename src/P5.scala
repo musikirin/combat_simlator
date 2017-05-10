@@ -23,7 +23,7 @@ class P5 extends PApplet {
     smooth()
 
     // デバッグ用兵士自動生成
-    for (_ <- 0 until 2) {
+    for (_ <- 0 until 100) {
       soldiers_list :+= Soldier(this, math.random() * width / 4, math.random() * height, 0, 0)
       soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height, 1, 1)
     }
@@ -40,7 +40,7 @@ class P5 extends PApplet {
         case _ =>
       }
       x.collusion()
-      //      x.rotate()
+      x.rotate()
       x.draw()
       println(x.id + " : " + x.hp + " / " + x.max_hp)
       x

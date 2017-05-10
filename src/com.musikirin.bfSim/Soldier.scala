@@ -23,8 +23,7 @@ class Soldier(
   override var hp: Int = max_hp
   override var attack: Int = 60 + (math.random() * 40).toInt
   override var gun_skills: Double = 0.5 + (math.random() / 2)
-  override var degree: Double = 180
-  /*math.random() * 360 */
+  override var degree: Double = math.random() * 360
   override var speed: Double = 0.5
   override var hardness: Double = 50
 
