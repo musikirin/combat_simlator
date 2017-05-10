@@ -15,7 +15,7 @@ class P5 extends PApplet {
   override def settings() = {
     // 描画を軽量化するためにjavafx以外使用しないでください。
     //    fullScreen("processing.javafx.PGraphicsFX2D")
-    size(320, 240, "processing.javafx.PGraphicsFX2D")
+    size(640, 480, "processing.javafx.PGraphicsFX2D")
   }
 
   override def setup() = {
@@ -52,7 +52,7 @@ class P5 extends PApplet {
       x
     }
 
-    if (soldiers_list.length < 50) {
+    if (soldiers_list.length < 20) {
       soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
       soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)
     }

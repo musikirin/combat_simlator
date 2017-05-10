@@ -8,6 +8,10 @@ import processing.core.PApplet
   */
 package object bfSim {
 
+  /*設定*/
+  // 銃の精度 高いほど命中率が上がる
+  var guns_accuracy = 36
+
   /* グローバルデータ */
   var objctCounter: Int = 0
   var obj: Vector[MovableObject] = Vector()

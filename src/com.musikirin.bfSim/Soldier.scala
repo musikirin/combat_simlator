@@ -41,14 +41,16 @@ class Soldier(
     }
   }
 
+
   def fire(): Bullet = {
     //    println(s"$id is FIRE!!")
+    val ac = math.random() / guns_accuracy
     new Bullet(
       parent,
       objectCounter(),
       pos_x + (math.cos(radian * math.Pi) * (size_w + Bullet.size_w + 2)),
       pos_y + (math.sin(radian * math.Pi) * (size_w + Bullet.size_w + 2)),
-      radian
+      radian + (ac - ac / 2)
     )
   }
 
