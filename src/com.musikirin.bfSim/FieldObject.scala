@@ -21,13 +21,13 @@ trait FieldObject {
   */
 trait MovableObject extends FieldObject {
   var size_w: Double
-  var radian: Double
+  var degree: Double
   var speed: Double
   var attack: Int
 
   def move(amount: Double): Unit = {
-    pos_x += speed * amount * math.cos(radian * math.Pi)
-    pos_y += speed * amount * math.sin(radian * math.Pi)
+    pos_x += speed * amount * math.cos(degree.toRadians * math.Pi)
+    pos_y += speed * amount * math.sin(degree.toRadians * math.Pi)
   }
 }
 
@@ -36,5 +36,5 @@ trait MovableObject extends FieldObject {
   */
 trait Human extends MovableObject {
   var size_h: Double
-  var gun_skills: Int
+  var gun_skills: Double
 }

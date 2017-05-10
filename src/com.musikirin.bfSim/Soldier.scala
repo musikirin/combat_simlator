@@ -22,8 +22,8 @@ class Soldier(
   override var max_hp: Int = 90 + (math.random() * 20).toInt
   override var hp: Int = max_hp
   override var attack: Int = 60 + (math.random() * 40).toInt
-  override var gun_skills: Int = 60 + (math.random() * 80).toInt
-  override var radian: Double = math.random() * 2
+  override var gun_skills: Double = 0.5 + (math.random() / 2)
+  override var degree: Double = math.random() * 360
   override var speed: Double = 0.5
   override var hardness: Double = 50
 
@@ -41,37 +41,45 @@ class Soldier(
     }
   }
 
+  /**
+    * 最も近い的の方向を向く
+    */
+  def rotate(): Unit = {
+    // 違うIDで、もっとも距離が近い敵を束縛
+    val list = soldiers_list.filter(_.team_id != team_id)
+    if (list.nonEmpty) {
+      val nearest_enemy = Option(list.minBy(ellipseDistance(this, _)))
+      if (nearest_enemy.nonEmpty) {
+        degree = math.atan2(nearest_enemy.get.pos_y - pos_y, nearest_enemy.get.pos_x - pos_x).toDegrees
+      }
+    }
+  }
 
   def fire(): Bullet = {
-    //    println(s"$id is FIRE!!")
-    val ac = math.random() / guns_accuracy
+    val ac = math.random() / guns_accuracy / gun_skills
     new Bullet(
       parent,
       objectCounter(),
-      pos_x + (math.cos(radian * math.Pi) * (size_w + Bullet.size_w + 2)),
-      pos_y + (math.sin(radian * math.Pi) * (size_w + Bullet.size_w + 2)),
-      radian + (ac - ac / 2)
+      pos_x + (math.cos(degree * math.Pi) * (size_w + Bullet.size_w + 2)),
+      pos_y + (math.sin(degree * math.Pi) * (size_w + Bullet.size_w + 2)),
+      degree + (ac - ac / 2)
     )
   }
 
   def collusion(): Unit = {
     // 兵士と弾丸の接触判定
-    for {
-      b <- bullets_list
-    } {
-      if (this.id != b.id && ellipseDistance(this, b) < 0) {
-        println(this.id + " was Hit!!!")
-        this.hp -= b.attack
-        b.hp -= this.attack
+    for (b <- bullets_list) {
+      if (id != b.id && ellipseDistance(this, b) < 0) {
+        println(id + " was Hit!!!")
+        hp -= b.attack
+        b.hp -= attack
       }
     }
     // 兵士同士の接触判定
-    for {
-      b <- soldiers_list
-    } {
-      if (this.team_id != b.team_id && ellipseDistance(this, b) < 0) {
-        println(this.id + " Attack " + b.id + " !!!")
-        b.hp -= (this.attack / (1 + defferenceBetweenRadian(this.radian, b.radian))).toInt
+    for (b <- soldiers_list) {
+      if (team_id != b.team_id && ellipseDistance(this, b) < 0) {
+        println(id + " Attack " + b.id + " !!!")
+        b.hp = b.hp - math.abs(attack / (1 + defferenceBetweenRadian(degree.toRadians, b.degree.toRadians))).toInt
       }
     }
   }

@@ -34,7 +34,9 @@ class P5 extends PApplet {
         case _ =>
       }
       x.collusion()
+      x.rotate()
       x.draw()
+      println(x.id + " : " + x.hp + " / " + x.max_hp)
       x
     }
 
@@ -52,19 +54,20 @@ class P5 extends PApplet {
       x
     }
 
-    if (soldiers_list.length < 20) {
-      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
-      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)
+    // デバッグ用兵士自動生成
+    if (soldiers_list.length < 100) {
+      soldiers_list :+= Soldier(this, math.random() * width / 4, math.random() * height, 0, 0)
+      soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height, 1, 1)
     }
   }
 
   // キーの入力による動作
   override def keyPressed() {
     if (key == '1') {
-      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
+      soldiers_list :+= Soldier(this, math.random() * width / 4, math.random() * height, 0, 0)
     }
     if (key == '2') {
-      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)
+      soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height, 1, 1)
     }
     if (key == '0') {
       for (x <- soldiers_list) yield {
