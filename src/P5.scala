@@ -57,7 +57,13 @@ class P5 extends PApplet {
   // キーの入力による動作
   override def keyPressed() {
     if (key == '1') {
-      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
+      soldiers_list :+= Soldier(
+        this,
+        math.random() * width,
+        math.random() * height,
+        0,
+        0
+      )
     }
     if (key == '2') {
       soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)

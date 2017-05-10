@@ -43,6 +43,12 @@ package object bfSim {
     n
   }
 
+  def defferenceBetweenRadian(a: Double, b: Double): Double = {
+    val c = math.abs(a - b)
+    if (c > 1) 2 - c
+    else c
+  }
+
 
   /**
     * 円形の図形同士が接触しているか判定します。
