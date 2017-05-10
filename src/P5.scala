@@ -70,12 +70,7 @@ class P5 extends PApplet {
       soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height, 1, 1)
     }
     if (key == '0') {
-      for (x <- soldiers_list) yield {
-        x match {
-          case x: Soldier => bullets_list :+= x.fire()
-          case _ =>
-        }
-      }
+      for (x <- soldiers_list) x.fire()
     }
   }
 

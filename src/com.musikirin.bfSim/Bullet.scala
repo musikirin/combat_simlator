@@ -27,7 +27,7 @@ class Bullet(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Dou
 }
 
 object Bullet {
-  val size_w: Double = 3
+  val size_w: Double = 2
   def apply(parent: PApplet, pos_x: Double, pos_y: Double, radian: Double): Unit = {
     new Bullet(parent, objectCounter(), pos_x, pos_y, radian)
   }

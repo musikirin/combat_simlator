@@ -18,7 +18,7 @@ class Soldier(
                val team_id: Int
              ) extends Human {
   override var size_h: Double = 10
-  override var size_w: Double = 5
+  override var size_w: Double = 4
   override var max_hp: Int = 90 + (math.random() * 20).toInt
   override var hp: Int = max_hp
   override var attack: Int = 60 + (math.random() * 40).toInt
@@ -26,6 +26,7 @@ class Soldier(
   override var degree: Double = math.random() * 360
   override var speed: Double = 0.5
   override var hardness: Double = 50
+  var number_of_bullets: Int = 10
 
   override def draw(): Unit = {
     // HP0を回収するスクリプトに依存するので注意
@@ -57,15 +58,18 @@ class Soldier(
     }
   }
 
-  def fire(): Bullet = {
-    val ac = math.random() / guns_accuracy / gun_skills
-    new Bullet(
-      parent,
-      objectCounter(),
-      pos_x + (math.cos(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
-      pos_y + (math.sin(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
-      degree + (ac - ac / 2)
-    )
+  def fire(): Unit = {
+    if (number_of_bullets > 0) {
+      val ac = math.random() / guns_accuracy / gun_skills
+      bullets_list :+= new Bullet(
+        parent,
+        objectCounter(),
+        pos_x + (math.cos(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
+        pos_y + (math.sin(degree.toRadians * math.Pi) * (size_w + Bullet.size_w + 2)),
+        degree + (ac - ac / 2)
+      )
+      number_of_bullets -= 1
+    }
   }
 
   def collusion(): Unit = {
