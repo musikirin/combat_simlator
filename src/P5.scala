@@ -15,7 +15,7 @@ class P5 extends PApplet {
   override def settings() = {
     // 描画を軽量化するためにjavafx以外使用しないでください。
     //    fullScreen("processing.javafx.PGraphicsFX2D")
-    size(640, 480, "processing.javafx.PGraphicsFX2D")
+    size(320, 240, "processing.javafx.PGraphicsFX2D")
   }
 
   override def setup() = {
@@ -27,14 +27,13 @@ class P5 extends PApplet {
     //    println(s"---- $frameCount ----")
     Display.refresh(0)
 
-    collusion()
-
     // ガード文でHP0のオブジェクトを排除します。
     soldiers_list = for (x <- soldiers_list if x.hp > 0) yield {
       x match {
         case y: MovableObject => y.move(1)
         case _ =>
       }
+      x.collusion()
       x.draw()
       x
     }
@@ -52,18 +51,17 @@ class P5 extends PApplet {
       x.draw()
       x
     }
+
+    if (soldiers_list.length < 50) {
+      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
+      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)
+    }
   }
 
   // キーの入力による動作
   override def keyPressed() {
     if (key == '1') {
-      soldiers_list :+= Soldier(
-        this,
-        math.random() * width,
-        math.random() * height,
-        0,
-        0
-      )
+      soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 0, 0)
     }
     if (key == '2') {
       soldiers_list :+= Soldier(this, math.random() * width, math.random() * height, 1, 1)

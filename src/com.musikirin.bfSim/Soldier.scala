@@ -51,6 +51,28 @@ class Soldier(
       radian
     )
   }
+
+  def collusion(): Unit = {
+    // 兵士と弾丸の接触判定
+    for {
+      b <- bullets_list
+    } {
+      if (this.id != b.id && ellipseDistance(this, b) < 0) {
+        println(this.id + " was Hit!!!")
+        this.hp -= b.attack
+        b.hp -= this.attack
+      }
+    }
+    // 兵士同士の接触判定
+    for {
+      b <- soldiers_list
+    } {
+      if (this.team_id != b.team_id && ellipseDistance(this, b) < 0) {
+        println(this.id + " Attack " + b.id + " !!!")
+        b.hp -= (this.attack / (1 + defferenceBetweenRadian(this.radian, b.radian))).toInt
+      }
+    }
+  }
 }
 
 object Soldier {
