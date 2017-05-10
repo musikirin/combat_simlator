@@ -27,6 +27,7 @@ class Soldier(
   override var speed: Double = 0.5
   override var hardness: Double = 50
   var number_of_bullets: Int = 10
+  var shot_range: Double = 50
 
   override def draw(): Unit = {
     // HP0を回収するスクリプトに依存するので注意
@@ -39,6 +40,21 @@ class Soldier(
       parent.fill(Team.color(team_id)._1, Team.color(team_id)._2, Team.color(team_id)._3)
       parent.ellipse(pos_x, pos_y, size_w, size_w)
     }
+  }
+
+  def think(): Unit = {
+    val dice = math.random() * 100
+    if (number_of_bullets == 0) {
+      rotate()
+      move(speed)
+    }
+    else {
+      rotate()
+      if (dice < 1) fire()
+      else if (dice < 10) move(speed)
+    }
+    draw()
+    collusion()
   }
 
   /**

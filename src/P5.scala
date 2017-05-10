@@ -23,7 +23,7 @@ class P5 extends PApplet {
     smooth()
 
     // デバッグ用兵士自動生成
-    for (_ <- 0 until 100) {
+    for (_ <- 0 until 5) {
       soldiers_list :+= Soldier(this, math.random() * width / 4, math.random() * height, 0, 0)
       soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height, 1, 1)
     }
@@ -35,22 +35,13 @@ class P5 extends PApplet {
 
     // ガード文でHP0のオブジェクトを排除します。
     soldiers_list = for (x <- soldiers_list if x.hp > 0) yield {
-      x match {
-        case y: MovableObject => y.move(1)
-        case _ =>
-      }
-      x.collusion()
-      x.rotate()
-      x.draw()
+      x.think()
       println(x.id + " : " + x.hp + " / " + x.max_hp)
       x
     }
 
     bullets_list = for (x <- bullets_list if x.hp > 0) yield {
-      x match {
-        case y: MovableObject => y.move(1)
-        case _ =>
-      }
+      x.move(1)
       x.draw()
       x
     }

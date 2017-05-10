@@ -10,7 +10,7 @@ package object bfSim {
 
   /*設定*/
   // 銃の精度 高いほど命中率が上がる
-  var guns_accuracy = 36
+  var guns_accuracy = 30
 
   /* グローバルデータ */
   var objctCounter: Int = 0
