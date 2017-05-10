@@ -5,7 +5,13 @@ import processing.core.PApplet
 /**
   * Created by kirin on 2017/05/01.
   */
-class Bullet(val parent: PApplet, val id: Int, var pos_x: Double, var pos_y: Double, var degree: Double) extends MovableObject {
+class Bullet(
+              val parent: PApplet,
+              val id: Int,
+              var pos_x: Double,
+              var pos_y: Double,
+              var degree: Double
+            ) extends MovableObject {
   override var size_w: Double = Bullet.size_w
   override var speed: Double = 10
   override var max_hp: Int = 1

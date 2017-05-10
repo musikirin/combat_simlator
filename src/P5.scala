@@ -23,7 +23,7 @@ class P5 extends PApplet {
     smooth()
 
     // デバッグ用兵士自動生成
-    for (_ <- 0 until 2) {
+    for (_ <- 0 until 200) {
       soldiers_list :+= Soldier(this, math.random() * width / 4, math.random() * height / 2 + height / 4, 0, 0)
       soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height / 2 + height / 4, 1, 1)
     }

@@ -11,6 +11,7 @@ class Team {
 object Team {
   val color = Vector(
     (255, 0, 0),
-    (0, 255, 0)
+    (0, 255, 0),
+    (0, 0, 255)
   )
 }

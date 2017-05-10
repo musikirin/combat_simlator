@@ -5,14 +5,14 @@ import processing.core.PApplet
 /**
   * 人間を模したインスタンスです。
   * パラメータはある程度ランダムで生成され、これにより個性を作ります。
-  * TODO: implicitを使って、ellipseをDoubleでも呼べるようにする
   */
 
 case class Position(var pos_x: Double, var pos_y: Double)
 
 class Soldier(
                val parent: PApplet,
-               val id: Int, var pos_x: Double,
+               val id: Int,
+               var pos_x: Double,
                var pos_y: Double,
                val platoon_id: Int,
                val team_id: Int
@@ -26,7 +26,7 @@ class Soldier(
   override var degree: Double = math.random() * 360
   override var speed: Double = 0.5
   override var hardness: Double = 50
-  var number_of_bullets: Int = 10
+  var number_of_bullets: Int = 5
   var shot_range: Double = 50
 
   override def draw(): Unit = {
