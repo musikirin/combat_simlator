@@ -24,9 +24,9 @@ class P5 extends PApplet {
     frameRate(60)
 
     // デバッグ用兵士自動生成
-    for (_ <- 0 until 100) {
-      soldiers_list :+= Soldier(this, math.random() * width / 4, math.random() * height / 2 + height / 4, 0, 0)
-      soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height / 2 + height / 4, 1, 1)
+    for (_ <- 0 until 200) {
+      soldiers_list :+= Soldier(this, math.random() * 50 + 10, math.random() * (height - 20) + 10, 0, 0)
+      soldiers_list :+= Soldier(this, width - (math.random() * 50) - 10, math.random() * (height - 20) + 10, 1, 1)
     }
   }
 
@@ -34,22 +34,24 @@ class P5 extends PApplet {
     //    println(s"---- $frameCount ----")
     Display.refresh(0)
 
-    // ガード文でHP0のオブジェクトを排除します。
-    soldiers_list = for (x <- soldiers_list if x.hp > 0) yield {
-      x.think()
-      println(x.id + " : " + x.hp + " / " + x.max_hp)
-      x
-    }
+    if (sim_start) {
+      // ガード文でHP0のオブジェクトを排除します。
+      soldiers_list = for (x <- soldiers_list if x.hp > 0) yield {
+        x.think()
+        println(x.id + " : " + x.hp + " / " + x.max_hp)
+        x
+      }
 
-    bullets_list = for (x <- bullets_list if x.hp > 0) yield {
-      x.move(1)
-      x.draw()
-      x
-    }
+      bullets_list = for (x <- bullets_list if x.hp > 0) yield {
+        x.move(1)
+        x.draw()
+        x
+      }
 
-    gabage = for (x <- gabage if x.hp > 0) yield {
-      x.draw()
-      x
+      gabage = for (x <- gabage if x.hp > 0) yield {
+        x.draw()
+        x
+      }
     }
   }
 
@@ -62,7 +64,7 @@ class P5 extends PApplet {
       soldiers_list :+= Soldier(this, width - (math.random() * width / 4), math.random() * height, 1, 1)
     }
     if (key == '0') {
-      for (x <- soldiers_list) x.fire()
+      if (sim_start) sim_start = false else sim_start = true
     }
   }
 
@@ -84,6 +86,4 @@ class P5 extends PApplet {
       rect(0, 0, width, height)
     }
   }
-
-
 }

@@ -14,6 +14,7 @@ package object bfSim {
 
   /* グローバルデータ */
   var objctCounter: Int = 0
+  var sim_start = false
   var obj: Vector[MovableObject] = Vector()
   // TODO: グローバルオブジェクトは禁止
   var soldiers_list: Vector[Soldier] = Vector()
